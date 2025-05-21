@@ -1,7 +1,6 @@
 /* TELA 1280 PX */
 
 .header {
-  /* display: flex; */
   max-width: 880px;
   margin: auto;
   align-items: center;

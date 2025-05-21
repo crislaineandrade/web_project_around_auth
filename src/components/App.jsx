@@ -7,7 +7,7 @@ import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
 import Login from './Main/components/Login';
 import Register from './Main/components/Register';
-import ProtectedRoute from './Main/components/ProtectedRoute.JSX';
+import ProtectedRoute from './Main/components/ProtectedRoute';
 
 import auth from '../utils/auth';
 import InfoTooltip from './Main/components/Popup/components/InfoTooltip/InfoTooltip';
@@ -37,17 +37,6 @@ function App() {
 
     getCards();
   }, [isLoggedIn]);
-
-  // useEffect(() => {
-
-  //   function getCards() {
-  //     api.getCards().then((card) => {
-  //       setCards(card);
-  //     });
-  //   }
-
-  //   getCards();
-  // }, []);
 
   async function handleCardLike(card) {
     const isLiked = card.isLiked;
@@ -115,19 +104,6 @@ function App() {
 
   if (isCheckingToken) return null;
 
-  // useEffect(() => {
-  //   function getUserInfo() {
-  //     const token = localStorage.getItem('jwt');
-  //     auth.getUserInfo(token).then((userInfo) => {
-
-  //       console.log(userInfo)
-  //       setCurrentUser(userInfo);
-  //     })
-  //     .catch((err) => console.error('Erro ao buscar usuário:', err));
-  //   }
-  //   getUserInfo();
-  // }, [isLoggedIn]);
-
   const handleUpdateUser = (data) => {
     api
       .editProfile(data.name, data.about)
@@ -147,7 +123,6 @@ function App() {
 
   function handleGetAvatar() {
     api.getAvatar().then((userData) => {
-      console.log(userData);
       setCurrentUser((prevUser) => ({
         ...prevUser,
         avatar: userData.avatar,
@@ -169,7 +144,6 @@ function App() {
     auth
       .register(email, password)
       .then((data) => {
-        console.log(data);
         setIsSucceed(true);
         setIsToolTipOpened(true);
 
@@ -183,27 +157,6 @@ function App() {
         setIsToolTipOpened(true);
       });
   }
-
-  // function login(email, password) {
-  //   auth.login(email, password)
-  //   .then((data) => {
-  //     console.log(data)
-  //     localStorage.setItem('jwt', data.token)
-  //     setIsLoggedIn(true)
-
-  //     return api.getAvatar().then((userData) => {
-  //       console.log(userData)
-  //       setCurrentUser(userData)
-
-  //       navigate('/')
-
-  //     })
-
-  //   })
-  //   .catch((err) => {
-  //     console.log(err)
-  //   })
-  // }
 
   function login(email, password) {
     auth
